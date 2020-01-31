@@ -13,3 +13,4 @@ games = {1 :['Halo 3','FPS','Bungee','Microsoft','Xbox 360','2007','4','both','$
 data_file = open("game_lib.pickle", "wb")
 pickle.dump(games, data_file)
 data_file.close()
+6
