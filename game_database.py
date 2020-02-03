@@ -41,7 +41,7 @@ def add_game():
         new_entry.append(input("\n Have you Beat it? "))
         new_entry.append(input("\n What was the Purchase Date? "))
         new_entry.append(input("\n Any Notes? "))
-        answer = input("Is this correct? ")
+        answer = input("\n Is this correct[Y/n]? ")
         if answer.lower() in ("yes", "y"):
             valid = True
         games[new_key] = new_entry
@@ -49,82 +49,83 @@ def add_game():
 def edit_pass(edit, number, edit_entry):
     if edit != "":
         edit_entry[number] = edit
-    else:
-        pass
-    
-    
+
 def edit_game():
     print("\n Your Library: ")
     for key in games.keys():
         print(key, "-", games[key][0])
     edit_key = int(input("\n Which game do you want to change? "))
-    edit_entry = games[edit_key]
-    valid = False
-    while not valid:
+    if edit_key not in games:
+        print("\n ***GAME NOT FOUND!***")
         
-        print("\n Current Title: ", edit_entry[0])
-        edit = input("\n New Title: ")
-        number = 0
-        edit_pass(edit, number, edit_entry)
-        
-        print("\n Current Genre: ", edit_entry[1])
-        edit = input("\n New Genre: ")  
-        number = 1
-        edit_pass(edit, number, edit_entry)
-        
-        print("\n Current Developer: ", edit_entry[2])
-        edit = input("\n New Developer: ")
-        number = 2
-        edit_pass(edit, number, edit_entry)
-        
-        print("\n Current Publisher: ", edit_entry[3])
-        edit = input("\n New Publisher: ")        
-        number = 3
-        edit_pass(edit, number, edit_entry)
-        
-        print("\n Current System: ", edit_entry[4])
-        edit = input("\n New System: ")        
-        number = 4
-        edit_pass(edit, number, edit_entry)
-        
-        print("\n Current Release Date: ", edit_entry[5])
-        edit_ = input("\n New Release Date: ")   
-        number = 5
-        edit_pass(edit, number, edit_entry)
-        
-        print("\n Current Rating: ", edit_entry[6])
-        edit = input("\n New Rating: ")   
-        number = 6
-        
-        print("\n Current Single/Multi: ", edit_entry[7])
-        edit = input("\n New Single/Multi: ")   
-        number = 7
-        edit_pass(edit, number, edit_entry)
-        
-        print("\n Current Price: ", edit_entry[8])
-        edit = input("\n New Price: ")   
-        number = 8
-        edit_pass(edit, number, edit_entry)
-        
-        print("\n Current Beaten Status: ", edit_entry[9])
-        edit = input("\n New Beaten Status: ")   
-        number = 9
-        edit_pass(edit, number, edit_entry)
-        
-        print("\n Current Purchase Date: ", edit_entry[10])
-        edit = input("\n New Purchase Date:: ") 
-        number = 10
-        edit_pass(edit, number, edit_entry)
-        
-        print("\n Current Notes: ", edit_entry[11])
-        edit = input("\n New Notes: ")             
-        number = 11
-        edit_pass(edit, number, edit_entry)
-        
-        answer = input("Is this correct? ")
-        if answer.lower() in ("yes", "y"):
-            valid = True
-        new_entry = games[edit_key]        
+    else:
+        edit_entry = games[edit_key]
+        valid = False
+        while not valid:
+            
+            print("\n Current Title: ", edit_entry[0])
+            edit = input("\n New Title: ")
+            number = 0
+            edit_pass(edit, number, edit_entry)
+            
+            print("\n Current Genre: ", edit_entry[1])
+            edit = input("\n New Genre: ")  
+            number = 1
+            edit_pass(edit, number, edit_entry)
+            
+            print("\n Current Developer: ", edit_entry[2])
+            edit = input("\n New Developer: ")
+            number = 2
+            edit_pass(edit, number, edit_entry)
+            
+            print("\n Current Publisher: ", edit_entry[3])
+            edit = input("\n New Publisher: ")        
+            number = 3
+            edit_pass(edit, number, edit_entry)
+            
+            print("\n Current System: ", edit_entry[4])
+            edit = input("\n New System: ")        
+            number = 4
+            edit_pass(edit, number, edit_entry)
+            
+            print("\n Current Release Date: ", edit_entry[5])
+            edit_ = input("\n New Release Date: ")   
+            number = 5
+            edit_pass(edit, number, edit_entry)
+            
+            print("\n Current Rating: ", edit_entry[6])
+            edit = input("\n New Rating: ")   
+            number = 6
+            
+            print("\n Current Single/Multi: ", edit_entry[7])
+            edit = input("\n New Single/Multi: ")   
+            number = 7
+            edit_pass(edit, number, edit_entry)
+            
+            print("\n Current Price: ", edit_entry[8])
+            edit = input("\n New Price: ")   
+            number = 8
+            edit_pass(edit, number, edit_entry)
+            
+            print("\n Current Beaten Status: ", edit_entry[9])
+            edit = input("\n New Beaten Status: ")   
+            number = 9
+            edit_pass(edit, number, edit_entry)
+            
+            print("\n Current Purchase Date: ", edit_entry[10])
+            edit = input("\n New Purchase Date:: ") 
+            number = 10
+            edit_pass(edit, number, edit_entry)
+            
+            print("\n Current Notes: ", edit_entry[11])
+            edit = input("\n New Notes: ")             
+            number = 11
+            edit_pass(edit, number, edit_entry)
+            
+            answer = input("\n Is this correct[Y/n]? ")
+            if answer.lower() in ("yes", "y"):
+                valid = True
+            new_entry = games[edit_key]        
         
 def print_all():
     for key in games.keys():
@@ -258,8 +259,19 @@ def search_by_item():
         print("*** NOT A VALID CHOICE ***\n")       
     
 def remove_game():
-    print("\n  remove_game function running")
-    
+    print("\n Your Library: ")
+    for key in games.keys():
+        print(key, "-", games[key][0])
+    remove_key = int(input("\n Which game do you want to remove? "))  
+    if remove_key not in games:
+        print("\n ***GAME NOT FOUND!***")   
+        pass
+    else:
+        answer = input("\n Are you sure you would like to delete this[Y/n]? ")
+        if answer.lower() in ("yes", "y"):
+            entry = games.pop(remove_key)
+            print("\n ", entry[0], "has been removed. ")        
+
 def save_database():
     data_file = open("game_lib.pickle", "wb")
     pickle.dump(games, data_file)
@@ -267,7 +279,13 @@ def save_database():
     print("\n Data Saved!")
     
 def quit():
-    print("\n Goodbye.")
+    answer = input("\n  Would you like to save your database[Y/n]?  ") 
+    if answer.lower() in ("yes", "y"):
+        data_file = open("game_lib.pickle", "wb")
+        pickle.dump(games, data_file)
+        data_file.close()
+        print("\n   Data Saved!")        
+    print("\n    Goodbye.")
     exit()
 
 keep_going = True
@@ -310,6 +328,6 @@ while keep_going:
     elif choice == "Q":
         quit()    
     else:
-        print("*** NOT A VALID CHOICE ***\n")    
+        print("\n *** NOT A VALID CHOICE ***\n")    
         
 print("\n Goodbye.")
